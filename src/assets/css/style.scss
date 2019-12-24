@@ -1,0 +1,296 @@
+* {
+  margin: 0;
+  padding: 0;
+  //   /*  使用IE盒模型（个人取舍，我一般设置width是这是盒子的真实大小，包括padding和border） */
+  //   box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  /* 标准字体大小可以，在移动端使用的rem适配的话会动态改变。 */
+  font-size: 13px;
+  /* 照着antd上面来的，在公司就别用微软雅黑了，不建议字体使用rem。 */
+  font: 14px, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+img,
+iframe,
+video {
+  max-width: 100%;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+
+  /* 在有些手机浏览器中点击一个链接或着可点击元素的时候，会出现一个半透明的灰色背景； */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* 提升移动端滚动的体验效果  */
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-family: PingFang SC, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f0f3f6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: #f1f1f1;
+  /* 使字体更加顺滑 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  /* 小手 */
+  cursor: pointer;
+  /* 取消超链接的默认下划线 */
+  text-decoration: none;
+  /* antd里面还做了 ， 看你团队需不需要这样的风格 */
+  transition: color 0.3s ease;
+}
+
+ol,
+ul {
+  /* 去除自带的ugly样式。 */
+  list-style: none;
+}
+
+/* 这些节点部分属性没有继承父节点样式，所有继承一下，并取消outline，外轮廓的效果 */
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+select,
+button,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  color: inherit;
+  outline: none;
+}
+
+button,
+input[type='submit'],
+input[type='button'] {
+  /* 可点击小手 */
+  cursor: pointer;
+}
+/* 取消部分浏览器数字输入控件的操作按钮 apperance可以改变控件的外观。 */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+/**
+    * 删除Firefox中的内边框和填充。
+    */
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+/**
+    * 让html5中的hidden在IE10中正确显示
+    */
+
+[hidden] {
+  display: none;
+}
+template {
+  /* 有些浏览器会显示template 不过template标签用的也少，自行取舍。 */
+  display: none;
+}
+$colors: (
+  'left-tree': #455a64,
+  'center-content': #323233,
+  'white': #ffffff,
+  'black': #000000,
+  'mobile':#323233,
+  'mobile-light':rgba(69, 90, 100, 0.6)
+
+);
+.bg-header {
+  background: #001938;
+}
+$font-sizes: (
+  'xs': 13px,
+  's': 14px,
+  'm': 16px,
+  'l': 17px,
+  'xl': 22px,
+  'xxl': 30px,
+);
+@each $class, $value in $colors {
+  .color-#{$class} {
+    color: $value;
+  }
+}
+
+@for $fs from 12 to 31 {
+  .fs-#{$fs} {
+    font-size: #{$fs}px;
+  }
+}
+@each $class, $value in $font-sizes {
+  .fs-#{$class} {
+    font-size: $value;
+  }
+}
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var;
+  }
+}
+//display
+.d-i {
+  display: inline;
+}
+.d-ib {
+  display: inline-block;
+}
+.d-b {
+  display: block;
+}
+
+// flex
+
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+$flex-jc: (
+  'start': flex-start,
+  'center': center,
+  'end': flex-end,
+  'between': space-between,
+  'around': space-around,
+);
+
+$flex-ai: (
+  'start': flex-start,
+  'center': center,
+  'end': flex-end,
+);
+
+@each $class, $value in $flex-jc {
+  .jc-#{$class} {
+    justify-content: $value;
+  }
+}
+@each $class, $value in $flex-ai {
+  .ai-#{$class} {
+    align-items: $value;
+  }
+}
+
+// width
+$width-base-size: 10;
+@for $index from 1 through 20 {
+  $width: $index * $width-base-size;
+  .w-#{$width} {
+    width: #{$width}px;
+  }
+  .h-#{$width} {
+    height: #{$width}px;
+  }
+  .lh-#{$width} {
+    line-height: #{$width}px;
+  }
+}
+.w-100 {
+  width: 100%;
+}
+//spacing
+$spacing-base-size: 10;
+$spacing-types: (
+  m: margin,
+  p: padding,
+);
+$spacing-directions: (
+  t: top,
+  l: left,
+  b: bottom,
+  r: right,
+);
+
+@for $index from 0 through 20 {
+  $value: $spacing-base-size * $index;
+  @each $typeName, $typeValue in $spacing-types {
+    // m-1
+    .#{$typeName}-#{$value} {
+      #{$typeValue}: #{$value}px;
+    }
+
+    //mx-1
+    .#{$typeName}x-#{$value} {
+      #{$typeValue}-left: #{$value}px;
+      #{$typeValue}-right: #{$value}px;
+    }
+    .#{$typeName}y-#{$value} {
+      #{$typeValue}-top: #{$value}px;
+      #{$typeValue}-bottom: #{$value}px;
+    }
+    //mt-1
+    @each $directionName, $directionValue in $spacing-directions {
+      .#{$typeName}#{$directionName}-#{$value} {
+        #{$typeValue}-#{$directionValue}: #{$value}px;
+      }
+    }
+  }
+}
+.mr-a {
+  margin-right: auto;
+}
+.ml-a {
+  margin-left: auto;
+}
+
+//sprite
+
+// one-line-cut
+.one-line-cut {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 行内元素水平对齐
+.v-c {
+  vertical-align: middle;
+}
+// 不可选
+.no-use {
+  user-select: none;
+}
+
+.b-none {
+  border: none;
+}
+.bg-none {
+  background: transparent;
+}

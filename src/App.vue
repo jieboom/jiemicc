@@ -1,32 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
+<script>
 
-<style>
+
+export default {
+  name: 'App',
+  created() {
+    const mobileSystem = ['iphone', 'android '];
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobile = mobileSystem.some(system => userAgent.includes(system));
+
+    const path = this.$route.fullPath;
+    if (isMobile && !/mobile/.test(path)) {
+      this.$router.push(`/mobile${path}`);
+    }
+    if (!isMobile && /mobile/.test(path)) {
+      this.$router.push(path.replace(/mobile\/|mobile/, ''));
+    }
+  },
+  methods: {
+    linkToDemo() {
+      this.demoShow = true;
+    },
+  },
+};
+</script>
+<style scoped lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  .jiemicc-doc {
+    max-width: 1700px;
+    min-width: 1120px;
+    margin: auto;
+  }
+  .jiemicc-demo {
+    min-height: 100vh;
+    padding: 20px;
+    padding-top: 46px;
+    background: #fff;
+  }
 }
 </style>
