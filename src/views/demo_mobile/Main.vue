@@ -41,6 +41,13 @@ export default {
             {
               name: 'Button 按钮',
               link: 'button',
+            }, {
+              name: 'Icon 图标',
+              link: 'icon',
+            },
+            {
+              name: 'Cell 图标',
+              link: 'cell',
             },
           ],
         },
