@@ -46,8 +46,12 @@ export default {
               link: 'icon',
             },
             {
-              name: 'Cell 图标',
+              name: 'Cell 单元格',
               link: 'cell',
+            },
+            {
+              name: 'Popup 弹出层',
+              link: 'popup',
             },
           ],
         },
