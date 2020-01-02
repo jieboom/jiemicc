@@ -80,7 +80,8 @@ export default {
 
 .jiemicc-cell{
 
-    padding: 10px 0 10px 15px ;
+    padding:  15px ;
+    padding-right:0 ;
     font-size: var(--size);
     background: #fff;
     overflow: hidden;

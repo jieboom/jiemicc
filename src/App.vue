@@ -20,6 +20,7 @@ export default {
     if (!isMobile && /mobile/.test(path)) {
       this.$router.push(path.replace(/mobile\/|mobile/, ''));
     }
+    window.overIndex = 2019;
   },
   methods: {
     linkToDemo() {

@@ -302,6 +302,11 @@ $spacing-directions: (
     right: -50%;
     left: -50%;
     border: 0 solid;
+    z-index: 1;
     transform: scale(0.5);
   }
+}
+
+.over-hidden{
+   overflow: hidden;
 }
