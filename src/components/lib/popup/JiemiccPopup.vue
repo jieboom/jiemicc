@@ -61,6 +61,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    container: {
+      validator(value) {
+        return typeof value === 'string' || value instanceof Element;
+      },
+    },
   },
   computed: {
     roundStyle() {
@@ -68,7 +73,10 @@ export default {
     },
   },
   mounted() {
-    this.$refs.container.style.setProperty('--duration', `${this.duration / 1000}s`);
+    if (Number.isInteger(this.duration) && this.duration > 0) {
+      this.$refs.container.style.setProperty('--duration', `${this.duration / 1000}s`);
+    }
+    document.body.appendChild(this.$el);
   },
 
 
