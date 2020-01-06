@@ -1,26 +1,37 @@
 <template>
 
-  <div class="jiemicc-popup--container" ref="container"  style="--duration:30s;--round: 3px;">
+  <div
+    class="jiemicc-popup--container"
+    ref="container"
+    style="--duration:30s;--round: 3px;"
+  >
 
-    <transition   name="jiemicc-popup-overlay">
+    <transition name="jiemicc-popup-overlay">
       <overlay
         v-if="show"
-        @click.native="$emit('maskClick',false)"
+        @click.native="$emit('maskClick',false);$emit('overlay-click')"
         :overlayClass="$attrs.overlayClass"
         :overlayStyle="$attrs.overlayStyle"
         :overlayOpacity="$attrs.overlayOpacity"
         :overlayBackgroundColor="$attrs.overlayBackgroundColor"
       ></overlay>
     </transition>
-    <transition :name="`jiemicc-popup-fade-${popupPosition}`">
+    <transition
+      :name="`jiemicc-popup-fade-${popupPosition}`"
+      @enter="$emit('open')"
+      @after-enter="$emit('opened')"
+      @leave="$emit('close')"
+      @after-leave="$emit('closed')"
+    >
       <jiemicc-popup-content
-        :position="popupPosition"
         v-if="show"
+        :position="popupPosition"
         :closeable="$attrs.closeable"
         :closePosition="$attrs['close-position']"
         :closeIcon="$attrs['close-icon']"
-        :style="[roundStyle]"
-         @close="$emit('maskClick',false)"
+        :style="[roundStyle,contentStyle]"
+        @close="$emit('maskClick',false)"
+        @close.native.stop="$emit('click')"
       >
         <slot></slot>
       </jiemicc-popup-content>
@@ -63,23 +74,57 @@ export default {
     },
     container: {
       validator(value) {
-        return typeof value === 'string' || value instanceof Element;
+        return (
+          typeof value === 'string'
+          || (typeof value === 'object' && value instanceof HTMLElement)
+        );
+      },
+    },
+    contentStyle: {
+      type: Object,
+      default() {
+        return {};
       },
     },
   },
   computed: {
     roundStyle() {
-      return this.popupPosition === 'bottom' && this.round ? { 'border-top-right-radius': 'var(--round)', 'border-top-left-radius': 'var(--round)' } : {};
+      return this.popupPosition === 'bottom' && this.round
+        ? {
+          'border-top-right-radius': 'var(--round)',
+          'border-top-left-radius': 'var(--round)',
+        }
+        : {};
     },
   },
   mounted() {
+    // 动画执行时间
     if (Number.isInteger(this.duration) && this.duration > 0) {
-      this.$refs.container.style.setProperty('--duration', `${this.duration / 1000}s`);
+      this.$refs.container.style.setProperty(
+        '--duration',
+        `${this.duration / 1000}s`,
+      );
     }
-    document.body.appendChild(this.$el);
+    console.log(this.container);
+
+    // 指定挂载元素
+    const isHtmlElemntOrTag = val => typeof val === 'string'
+      || (typeof val === 'object' && val instanceof HTMLElement);
+    if (isHtmlElemntOrTag(this.container)) {
+      try {
+        const containerNode = typeof this.container === 'string'
+          ? document.querySelector(this.container)
+          : this.container;
+          // eslint-disable-next-line no-unused-expressions
+        containerNode && containerNode.appendChild(this.$el);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
+  methods: {
 
-
+  },
 };
 </script>
 <style lang='scss' scoped>
@@ -107,13 +152,12 @@ export default {
 
 [class*="enter-active"],
 [class*="leave-active"] {
-  transition: opacity  ease-out, transform  ease-out;
+  transition: opacity ease-out, transform ease-out;
   transition-duration: var(--duration);
 }
 
 .jiemicc-popup-overlay-enter,
 .jiemicc-popup-overlay-leave-to {
-  opacity: 0  !important;
+  opacity: 0 !important;
 }
-
 </style>

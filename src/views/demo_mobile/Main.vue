@@ -56,19 +56,11 @@ export default {
           ],
         },
         {
-          title: '反馈组件',
-          list: new Array(5).fill({
-            name: 'DropdownMenu 下拉菜单',
-            link: 'introduce',
-          }),
-        },
-
-        {
           title: '表单组件',
-          list: new Array(5).fill({
-            name: 'Chectbox 复选框',
-            link: 'checkbox',
-          }),
+          list: [{
+            name: 'Radio 单选框',
+            link: 'radio',
+          }],
         },
       ],
       demoShow: false,

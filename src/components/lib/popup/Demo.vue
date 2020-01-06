@@ -39,6 +39,8 @@
         <jiemicc-popup
           v-model="showLeft"
           popup-position="left"
+          :contentStyle="{width:'100%'}"
+          closeable
         ></jiemicc-popup>
         <jiemicc-cell
           title="右侧弹出"
@@ -102,6 +104,23 @@
           popup-position="bottom"
         ></jiemicc-popup>
     </demo-wrapper>
+    <demo-wrapper title="指定挂载节点">
+       <jiemicc-cell
+       title="指定挂载节点-tag"
+       is-link
+       @click.native="showContainerTag = true"
+       >
+
+       </jiemicc-cell>
+       <jiemicc-popup  v-model="showContainerTag" container="body"></jiemicc-popup>
+        <jiemicc-cell
+       title="指定挂载节点-node"
+       is-link
+       @click.native="showContainerNode = true"
+       >
+       </jiemicc-cell>
+       <jiemicc-popup  v-model="showContainerNode" :container="body"></jiemicc-popup>
+    </demo-wrapper>
 
   </div>
 </template>
@@ -132,6 +151,9 @@ export default {
       showCloseCustom: false,
       showColsePosition: false,
       showRound: false,
+      showContainerTag: false,
+      showContainerNode: false,
+      body: document.body,
     };
   },
   methods: {},
