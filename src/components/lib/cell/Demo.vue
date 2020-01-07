@@ -100,26 +100,29 @@
       </jiemicc-cell-group>
     </demo-wrapper>
     <demo-wrapper title="使用插槽">
-      <jiemicc-cell-group >
+      <jiemicc-cell-group>
 
-        <jiemicc-cell
-
-          value="内容"
-        >
-        <template v-slot:title>
-           <span>标题</span>
-           <jiemicc-icon name="aixin" size="14"></jiemicc-icon>
-        </template>
+        <jiemicc-cell value="内容">
+          <template v-slot:title>
+            <span>标题</span>
+            <jiemicc-icon
+              name="aixin"
+              size="14"
+            ></jiemicc-icon>
+          </template>
         </jiemicc-cell>
         <jiemicc-cell
           title="单元格"
           icon="caidan"
         >
-        <template>
-               嘻嘻
-           <jiemicc-icon name="buganxingqu" size="14"></jiemicc-icon>
+          <template>
+            嘻嘻
+            <jiemicc-icon
+              name="buganxingqu"
+              size="14"
+            ></jiemicc-icon>
 
-         </template></jiemicc-cell>
+          </template></jiemicc-cell>
       </jiemicc-cell-group>
 
     </demo-wrapper>
@@ -144,9 +147,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-
-  },
+  methods: {},
 };
 </script>
 <style lang='scss' scoped>

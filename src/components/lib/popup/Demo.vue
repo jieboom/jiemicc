@@ -12,7 +12,7 @@
       ></jiemicc-popup>
     </demo-wrapper>
     <demo-wrapper title="弹出位置">
-      <jiemicc-cell-group :border="false">
+      <jiemicc-cell-group clickable>
         <jiemicc-cell
           title="顶部弹出"
           is-link
@@ -54,7 +54,7 @@
       </jiemicc-cell-group>
     </demo-wrapper>
     <demo-wrapper title="关闭图标">
-      <jiemicc-cell-group :border="false">
+      <jiemicc-cell-group clickable>
         <jiemicc-cell
           title="关闭图标"
           is-link

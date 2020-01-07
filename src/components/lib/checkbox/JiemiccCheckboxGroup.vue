@@ -1,19 +1,20 @@
 <template>
-  <div class="jiemicc-radio-group" >
+  <div class="jiemicc-checkbox-group" >
       <slot></slot>
   </div>
 </template>
 
 <script >
 export default {
-  name: 'JiemiccRadioGroup',
-  componentName: 'JiemiccRadioGroup',
+  name: 'JiemiccChockboxGroup',
+  componentName: 'JiemiccChockboxGroup',
   model: {
     prop: 'value',
     event: 'change',
   },
   props: {
     value: {
+      type: Array,
       required: true,
     },
     disabled: {
@@ -25,11 +26,12 @@ export default {
       default: false,
     },
     checkedColor: String,
+    max: Number,
   },
   watch: {
     value(val) {
       setTimeout(() => {
-        this.$emit('radioChange', val);
+        this.$emit('checkboxChange', val);
       }, 0);
     },
   },
@@ -38,7 +40,12 @@ export default {
     };
   },
   methods: {
+    chooseAll() {
 
+    },
+    chooseToggle() {
+
+    },
   },
 };
 </script>

@@ -2,10 +2,12 @@
   <label
     ref="radioWrapper"
     class="jiemicc-radio"
-    :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$slots.icon}]"
-    :style="{'--checked-color': checkedColor,display: inline ? 'inline-block': 'block'}"
+    :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':checked}]"
+    :style="{'--checked-color': radioCheckedColor,display: inline ? 'inline-block': 'block'}"
+    @click="$emit('click')"
   >
     <input
+      ref="radio"
       class="jiemicc-radio_input"
       type="radio"
       :name="name"
@@ -15,16 +17,22 @@
     >
     <div class="jiemicc-radio_icon">
       <transition name="jiemicc-radio-icon">
-        <slot name="icon" :checked="checked">
+        <slot
+          name="icon"
+          :checked="checked"
+        >
         </slot>
+      </transition>
+      <transition name="jiemicc-radio-icon">
         <jiemicc-icon
-          v-if="!$slots.icon&&value === model"
+          v-if="!$slots.icon&&checked"
           name="diantong_kai"
           color="#fff"
         ></jiemicc-icon>
       </transition>
     </div>
     <span class="jiemicc-radio_label">
+
       <slot></slot>
       <template v-if="!$slots.default">
         {{value}}
@@ -41,11 +49,16 @@ export default {
   components: {
     JiemiccIcon,
   },
+  model: {
+    prop: 'radioValue',
+    event: 'change',
+  },
   props: {
     value: {
       type: String,
       required: true,
     },
+    radioValue: String,
     name: {
       type: String,
       required: true,
@@ -77,17 +90,27 @@ export default {
       set(val) {
         if (this.parentGroup) {
           this.parentGroup.$emit('change', val);
+        } else if (this.radioValue !== undefined) {
+          this.$emit('change', val);
         }
+        setTimeout(() => {
+          this.$emit('click');
+        }, 0);
       },
     },
     radioDisabled() {
       return this.disabled || (this.parentGroup && this.parentGroup.disabled);
     },
+    radioCheckedColor() {
+      return (
+        this.checkedColor || (this.parentGroup && this.parentGroup.checkedColor)
+      );
+    },
     inline() {
       return this.parentGroup && this.parentGroup.inline;
     },
     checked() {
-      return this.value === this.model;
+      return this.value === (this.model || this.radioValue);
     },
   },
 
@@ -97,11 +120,13 @@ export default {
   mounted() {
     const setStyleProperty = (property, value) => {
       // eslint-disable-next-line no-unused-expressions
-      this.$refs.radioWrapper && this.$refs.radioWrapper.style.setProperty(property, value);
+      this.$refs.radioWrapper
+        && this.$refs.radioWrapper.style.setProperty(property, value);
     };
     const styleMap = {
       '--checked-color': this.checkedColor,
     };
+
     // eslint-disable-next-line no-restricted-syntax
     for (const property in styleMap) {
       // eslint-disable-next-line no-prototype-builtins
@@ -110,9 +135,7 @@ export default {
       }
     }
   },
-  methods: {
-    test() {},
-  },
+  methods: {},
 };
 </script>
 <style lang='scss' scoped>
@@ -138,7 +161,9 @@ export default {
   }
   .jiemicc-radio_input {
     appearance: none;
-    &:checked + .jiemicc-radio_icon {
+  }
+  &.jiemicc-radio_checked {
+    .jiemicc-radio_icon {
       border: 1px solid var(--checked-color);
       background: var(--checked-color);
     }
@@ -154,7 +179,13 @@ export default {
       border-radius: 0;
     }
   }
-
+  &.jiemicc-radio__custom-icon {
+    .jiemicc-radio_icon {
+      border-radius: 0;
+      border: none !important;
+      background: transparent !important;
+    }
+  }
   .jiemicc-radio-icon-enter,
   .jiemicc-radio-icon-leave-to {
     opacity: 0;

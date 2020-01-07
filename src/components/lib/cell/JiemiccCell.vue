@@ -1,12 +1,12 @@
 <template>
-  <div class="jiemicc-cell" ref="cell" style="--size: 14px;">
-      <div class="jiemicc-cell-main d-flex jc-between" @click="to&&$router.push(to)">
+  <div class="jiemicc-cell" ref="cell" style="--size: 14px;" @click="$emit('click')">
+      <div class="jiemicc-cell-main d-flex jc-between" @click="to&&$router.push(to);">
           <span class="jiemicc-cell-main__title">
               <jiemicc-icon v-if="icon" :name="icon" :size="sizeMap[size]" style="margin-right: 5px;"></jiemicc-icon>
               <span v-if="title">{{title}}</span>
               <slot name="title"></slot>
           </span>
-          <span class="jiemicc-cell-main__value">
+          <span class="jiemicc-cell-main__value" >
               {{value}}
               <jiemicc-icon v-if="isLink" :name="'arrow-'+arrowDirection" :size="sizeMap[size]" ></jiemicc-icon>
               <slot></slot>
@@ -72,7 +72,6 @@ export default {
     this.$refs.cell.style.setProperty('--size', `${this.sizeMap[this.size]}px`);
   },
   methods: {
-
   },
 };
 </script>

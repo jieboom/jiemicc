@@ -60,6 +60,9 @@ export default {
           list: [{
             name: 'Radio 单选框',
             link: 'radio',
+          }, {
+            name: 'Checkbox 多选框',
+            link: 'checkbox',
           }],
         },
       ],

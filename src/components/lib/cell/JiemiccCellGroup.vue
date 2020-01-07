@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="jiemicc-cell-group__title" v-if="title">{{title}}</div>
-    <div class="jiemicc-cell-group " :class="{'jiemicc-hairline-topbottom':border}" >
+    <div class="jiemicc-cell-group " :class="['jiemicc-hairline-topbottom',{'jiemicc-cell-clickable':clickable}]" >
         <slot></slot>
-
     </div>
   </div>
 
@@ -17,9 +16,9 @@ export default {
       type: String,
       default: '',
     },
-    border: {
+    clickable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 };
@@ -39,6 +38,13 @@ export default {
       border-width: 1px 0;
       border-color: #ebedf0;
       z-index: 1;
+    }
+  }
+    &.jiemicc-cell-clickable {
+    &::after {
+      border-width: 1px 0;
+      border-color: #ebedf0;
+      z-index: -1;
     }
   }
   /deep/ .jiemicc-cell:not(:last-child) {
