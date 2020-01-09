@@ -2,7 +2,7 @@
   <label
     ref="radioWrapper"
     class="jiemicc-radio"
-    :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':checked}]"
+    :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':radioChecked}]"
     :style="{'--checked-color': radioCheckedColor,display: inline ? 'inline-block': 'block'}"
     @click="$emit('click')"
   >
@@ -19,13 +19,13 @@
       <transition name="jiemicc-radio-icon">
         <slot
           name="icon"
-          :checked="checked"
+          :checked="radioChecked"
         >
         </slot>
       </transition>
       <transition name="jiemicc-radio-icon">
         <jiemicc-icon
-          v-if="!$slots.icon&&checked"
+          v-if="!$slots.icon&&radioChecked"
           name="diantong_kai"
           color="#fff"
         ></jiemicc-icon>
@@ -75,6 +75,7 @@ export default {
       type: String,
       default: '#1989fa',
     },
+    checked: Boolean,
   },
   computed: {
     parentGroup() {
@@ -85,7 +86,7 @@ export default {
     },
     model: {
       get() {
-        return this.parentGroup ? this.parentGroup.value : '';
+        return this.parentGroup ? this.parentGroup.value : this.radioValue;
       },
       set(val) {
         if (this.parentGroup) {
@@ -109,13 +110,16 @@ export default {
     inline() {
       return this.parentGroup && this.parentGroup.inline;
     },
-    checked() {
+    radioChecked() {
       return this.value === (this.model || this.radioValue);
     },
   },
 
   data() {
     return {};
+  },
+  created() {
+    this.checked && this.initChecked();
   },
   mounted() {
     const setStyleProperty = (property, value) => {
@@ -135,7 +139,11 @@ export default {
       }
     }
   },
-  methods: {},
+  methods: {
+    initChecked() {
+      if (this.value !== this.model) this.model = this.value;
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>
@@ -172,6 +180,7 @@ export default {
     color: #c8c9cc;
     .jiemicc-radio_icon {
       background: rgba(#c8c9cc, 0.3);
+      border: 1px solid #c8c9cc;
     }
   }
   &.jiemicc-radio__square {

@@ -16,6 +16,24 @@
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
+    <demo-wrapper title="默认选中" >
+      <jiemicc-radio-group v-model="radio10">
+        <jiemicc-radio
+          value="1"
+          name="radio10"
+          checked
+        >单选1 </jiemicc-radio>
+        <jiemicc-radio
+          value="2"
+          name="radio10"
+          checked
+        >单选2</jiemicc-radio>
+        <jiemicc-radio
+          value="3"
+          name="radio10"
+        >单选3</jiemicc-radio>
+      </jiemicc-radio-group>
+    </demo-wrapper>
     <demo-wrapper title="单选框内联">
       <jiemicc-radio-group
         v-model="radio1"
@@ -180,14 +198,15 @@ export default {
   props: {},
   data() {
     return {
-      radio0: '1',
-      radio1: '1',
-      radio2: '1',
+      radio0: '',
+      radio1: '',
+      radio2: '',
       radio3: '',
-      radio4: '1',
-      radio5: '1',
-      radio6: '1',
-      radio7: '1',
+      radio4: '',
+      radio5: '',
+      radio6: '',
+      radio7: '',
+      radio10: '',
       checkedUrl: 'https://img.zcool.cn/community/01051955434ac00000019ae9a9a369.jpg@2o.jpg',
       unCheckedUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578969385&di=638b138fa31511b8ee2850bd15cd5cce&imgtype=jpg&er=1&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F90%2F47%2F9256efcbf458c23.jpg',
     };

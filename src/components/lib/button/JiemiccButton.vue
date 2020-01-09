@@ -4,6 +4,7 @@
     :class="[typeClass,plainClass,hairlineClass,disabledClass,sizeClass]"
     :disabled="disabled||loading"
     ref="button"
+    @click="$emit('click')"
   >
     <template v-if="!this.loading">
       <i

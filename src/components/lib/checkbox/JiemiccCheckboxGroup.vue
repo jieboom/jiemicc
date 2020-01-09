@@ -26,7 +26,11 @@ export default {
       default: false,
     },
     checkedColor: String,
+    shape: String,
+    labelDisabled: String,
+    iconSize: String,
     max: Number,
+    min: Number,
   },
   watch: {
     value(val) {
@@ -37,14 +41,26 @@ export default {
   },
   data() {
     return {
+      checkboxChild: [],
     };
   },
+  mounted() {
+    console.log(this.checkboxChild);
+  },
   methods: {
-    chooseAll() {
-
+    chooseToggle(all) {
+      if (all) {
+        this.checkboxChild.forEach((child) => {
+          child.initChecked();
+        });
+      } else {
+        const allValue = this.checkboxChild.map(child => child.label);
+        const subValue = allValue.filter(val => !this.value.includes(val));
+        this.$emit('change', subValue);
+      }
     },
-    chooseToggle() {
-
+    chooseItem(index) {
+      this.checkboxChild[index].$el.click();
     },
   },
 };

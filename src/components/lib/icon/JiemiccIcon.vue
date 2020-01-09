@@ -1,5 +1,5 @@
 <template>
-  <i class="jiemicc-button iconfont" ref="icon" style="--content:'';--min-width:2px" :style="{color:colorStyle,fontSize:fsStyle}"  :class="[nameClass,tipClass]">
+  <i class="jiemicc-icon iconfont" ref="icon" style="--content:'';--min-width:2px" :style="{color:colorStyle,fontSize:fsStyle}"  :class="[nameClass,tipClass]">
   </i>
 </template>
 
