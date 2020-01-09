@@ -4,14 +4,13 @@
     class="jiemicc-radio"
     :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':radioChecked}]"
     :style="{'--checked-color': radioCheckedColor,display: inline ? 'inline-block': 'block'}"
-    @click="$emit('click')"
+    @click.stop="$emit('click')"
   >
     <input
       ref="radio"
       class="jiemicc-radio_input"
       type="radio"
-      :name="name"
-      :value="value"
+      :value="label"
       :disabled="radioDisabled"
       v-model="model"
     >
@@ -35,7 +34,7 @@
 
       <slot></slot>
       <template v-if="!$slots.default">
-        {{value}}
+        {{label}}
       </template>
     </span>
   </label>
@@ -49,20 +48,13 @@ export default {
   components: {
     JiemiccIcon,
   },
-  model: {
-    prop: 'radioValue',
-    event: 'change',
-  },
+
   props: {
-    value: {
+    label: {
       type: String,
       required: true,
     },
-    radioValue: String,
-    name: {
-      type: String,
-      required: true,
-    },
+    value: String,
     disabled: {
       type: Boolean,
       default: false,
@@ -79,20 +71,30 @@ export default {
   },
   computed: {
     parentGroup() {
-      return this.$parent.$options.componentName
-        && this.$parent.$options.componentName === 'JiemiccRadioGroup'
-        ? this.$parent
-        : null;
+      let parent = this.$parent;
+      while (parent) {
+        if (
+          parent.$options.componentName
+          && parent.$options.componentName === 'JiemiccRadioGroup'
+        ) {
+          break;
+        }
+        parent = parent.$parent;
+      }
+      return parent;
     },
     model: {
       get() {
-        return this.parentGroup ? this.parentGroup.value : this.radioValue;
+        // eslint-disable-next-line no-nested-ternary
+        return this.parentGroup ? this.parentGroup.value : this.value !== undefined ? this.value : this.selfModel;
       },
       set(val) {
         if (this.parentGroup) {
           this.parentGroup.$emit('change', val);
-        } else if (this.radioValue !== undefined) {
-          this.$emit('change', val);
+        } else if (this.value !== undefined) {
+          this.$emit('input', val);
+        } else {
+          this.selfModel = val;
         }
         setTimeout(() => {
           this.$emit('click');
@@ -111,12 +113,14 @@ export default {
       return this.parentGroup && this.parentGroup.inline;
     },
     radioChecked() {
-      return this.value === (this.model || this.radioValue);
+      return this.label === (this.model || this.value);
     },
   },
 
   data() {
-    return {};
+    return {
+      selfModel: '',
+    };
   },
   created() {
     this.checked && this.initChecked();
@@ -141,7 +145,7 @@ export default {
   },
   methods: {
     initChecked() {
-      if (this.value !== this.model) this.model = this.value;
+      if (this.label !== this.model) this.model = this.label;
     },
   },
 };
@@ -150,25 +154,31 @@ export default {
 .jiemicc-radio {
   display: block;
   margin-right: 10px;
+  margin-top: 10px;
   height: 30px;
   line-height: 30px;
   .jiemicc-radio_icon {
     display: inline-block;
-    height: 20px;
-    width: 20px;
+     font-size: 25px;
+    height: 1em;
+    width: 1em;
     margin-right: 8px;
     border: 1px solid #c8c9cc;
     border-radius: 100%;
-    box-sizing: border-box;
     text-align: center;
-    line-height: 18px;
+    line-height: 1em;
     vertical-align: middle;
+     /deep/ .jiemicc-icon {
+      vertical-align: top;
+      font-size: 0.8em !important;
+    }
   }
   .jiemicc-radio_label {
-    vertical-align: middle;
+    vertical-align: top;
   }
   .jiemicc-radio_input {
     appearance: none;
+    opacity: 0;
   }
   &.jiemicc-radio_checked {
     .jiemicc-radio_icon {

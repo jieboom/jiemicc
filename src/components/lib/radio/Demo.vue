@@ -3,34 +3,28 @@
     <demo-wrapper title="基础用法" >
       <jiemicc-radio-group v-model="radio0">
         <jiemicc-radio
-          value="1"
-          name="radio0"
+          label="1"
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio0"
+          label="2"
         >单选2</jiemicc-radio>
         <jiemicc-radio
-          value="3"
-          name="radio0"
+          label="3"
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="默认选中" >
       <jiemicc-radio-group v-model="radio10">
         <jiemicc-radio
-          value="1"
-          name="radio10"
+          label="1"
           checked
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio10"
+          label="2"
           checked
         >单选2</jiemicc-radio>
         <jiemicc-radio
-          value="3"
-          name="radio10"
+          label="3"
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
@@ -40,16 +34,13 @@
         inline
       >
         <jiemicc-radio
-          value="1"
-          name="radio1"
+          label="1"
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio1"
+          label="2"
         >单选2</jiemicc-radio>
         <jiemicc-radio
-          value="3"
-          name="radio1"
+          label="3"
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
@@ -59,47 +50,39 @@
         disabled
       >
         <jiemicc-radio
-          value="1"
-          name="radio2"
+          label="1"
           disabled
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio2"
+          label="2"
         >单选2</jiemicc-radio>
         <jiemicc-radio
-          value="3"
-          name="radio2"
+          label="3"
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="禁用状态">
       <jiemicc-radio-group v-model="radio3">
         <jiemicc-radio
-          value="1"
-          name="radio3"
+          label="1"
           disabled
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio3"
+          label="2"
         >单选2</jiemicc-radio>
         <jiemicc-radio
-          value="3"
-          name="radio3"
+          label="3"
         >单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="自定义形状">
       <jiemicc-radio-group v-model="radio4">
         <jiemicc-radio
-          value="1"
-          name="radio4"
+          label="1"
           shape="square"
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio4"
+          label="2"
           shape="square"
         >单选2</jiemicc-radio>
       </jiemicc-radio-group>
@@ -107,13 +90,11 @@
     <demo-wrapper title="自定义选中颜色">
       <jiemicc-radio-group v-model="radio5">
         <jiemicc-radio
-          value="1"
-          name="radio5"
+          label="1"
           checked-color="#07c160"
         >单选1 </jiemicc-radio>
         <jiemicc-radio
-          value="2"
-          name="radio5"
+          label="2"
           checked-color="#07c160"
         >单选2</jiemicc-radio>
       </jiemicc-radio-group>
@@ -123,8 +104,7 @@
 
 
         <jiemicc-radio
-          value="1"
-          name="radio6"
+          label="1"
         >
           <template #icon="{checked}">
             <img
@@ -138,8 +118,7 @@
 
 
         <jiemicc-radio
-          value="2"
-          name="radio6"
+          label="2"
         >
           <template #icon="{checked}">
             <img
@@ -152,15 +131,14 @@
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper class="cell-demo" title="与cell一起使用" >
+       <jiemicc-radio-group v-model="radio7">
         <jiemicc-cell-group clickable>
         <jiemicc-cell
           title="单选框1"
           @click="radio7 = '1'"
         >
          <jiemicc-radio
-          value="1"
-          v-model="radio7"
-          name="radio1"
+          label="1"
         > {{''}} </jiemicc-radio>
         </jiemicc-cell>
         <jiemicc-cell
@@ -169,12 +147,11 @@
 
         >
          <jiemicc-radio
-          value="2"
-          v-model="radio7"
-          name="radio1"
+          label="2"
         >{{''}}</jiemicc-radio></jiemicc-cell>
 
       </jiemicc-cell-group>
+       </jiemicc-radio-group>
     </demo-wrapper>
   </div>
 </template>
