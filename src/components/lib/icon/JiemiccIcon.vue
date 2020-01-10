@@ -17,7 +17,7 @@ export default {
     },
     size: {
       type: String,
-      default: '16px',
+      default: '18px',
     },
     dot: {
       type: Boolean,

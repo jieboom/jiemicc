@@ -2,142 +2,143 @@
 <template>
   <div class="jiemicc-demo ">
     <demo-wrapper title="基础用法">
-      <jiemicc-checkbox v-model="checkbox0">多选1 </jiemicc-checkbox>
+      <jiemicc-field
+        v-model="field0"
+        placeholder="请输入文字"
+      ></jiemicc-field>
     </demo-wrapper>
-    <demo-wrapper title="禁止选中">
-      <jiemicc-checkbox
-        v-model="checkbox1"
-        disabled
-      >多选1 </jiemicc-checkbox>
-    </demo-wrapper>
-    <demo-wrapper title="禁用文本点击">
-      <jiemicc-checkbox
-        label-disabled
-        v-model="checkbox2"
-      >多选1 </jiemicc-checkbox>
+    <demo-wrapper title="自定义类型">
+      <jiemicc-cell-group clickable>
+        <jiemicc-field
+          label="文字"
+          type="text"
+          v-model="field1"
+          placeholder="请输入文字"
+        ></jiemicc-field>
+        <jiemicc-field
+          label="手机号码"
+          type="tel"
+          v-model="field2"
+          placeholder="请输入手机号码"
+        ></jiemicc-field>
+        <jiemicc-field
+          label="整数"
+          type="digit"
+          v-model="field3"
+          placeholder="请输入整数"
+        ></jiemicc-field>
+        <jiemicc-field
+          label="数字"
+          type="number"
+          v-model="field4"
+          placeholder="请输入数字"
+        ></jiemicc-field>
+        <jiemicc-field
+          label="密码"
+          type="password"
+          v-model="field5"
+          placeholder="请输入密码"
+        ></jiemicc-field>
 
+      </jiemicc-cell-group>
     </demo-wrapper>
-    <demo-wrapper title="自定义形状">
-      <jiemicc-checkbox
-        shape="square"
-        v-model="checkbox3"
-      >多选1 </jiemicc-checkbox>
+     <demo-wrapper title="禁用输入框">
+      <jiemicc-cell-group clickable>
+        <jiemicc-field
+          label="文本"
+          type="text"
+          v-model="field6"
+          placeholder="输入框只读"
+          readonly
+        ></jiemicc-field>
+        <jiemicc-field
+          label="文本"
+          type="text"
+          v-model="field7"
+          placeholder="输入框禁用"
+          disabled
+        ></jiemicc-field>
+      </jiemicc-cell-group>
     </demo-wrapper>
-    <demo-wrapper title="自定义大小">
-      <jiemicc-checkbox
-        shape="square"
-        icon-size="30px"
-        v-model="checkbox4"
-      >多选1 </jiemicc-checkbox>
+     <demo-wrapper title="插入图标">
+      <jiemicc-cell-group clickable>
+        <jiemicc-field
+          label="文本"
+          type="text"
+          v-model="field8"
+          left-icon="aixin"
+          placeholder="左侧图标"
+        ></jiemicc-field>
+        <jiemicc-field
+          label="文本"
+          type="text"
+          v-model="field9"
+          right-icon="ditu"
+          placeholder="右侧图标"
+        ></jiemicc-field>
+         <jiemicc-field
+          label="文本"
+          type="text"
+          v-model="field10"
+          clearable
+          placeholder="显示清除图标"
+        ></jiemicc-field>
+      </jiemicc-cell-group>
+    </demo-wrapper>
+     <demo-wrapper title="错误提示">
+      <jiemicc-cell-group clickable>
+        <jiemicc-field
+          label="用户名"
+          type="text"
+          v-model="field11"
+          left-icon="aixin"
+          placeholder="请输入用户名"
+          required
+        ></jiemicc-field>
+        <jiemicc-field
+          label="手机号"
+          type="text"
+          v-model="field12"
+          right-icon="ditu"
+          placeholder="请输入手机号"
+          required
+          error-message="手机号格式有误"
+        ></jiemicc-field>
 
+      </jiemicc-cell-group>
     </demo-wrapper>
-
-    <demo-wrapper title="选中框颜色">
-
-      <jiemicc-checkbox
-        :label="1"
-        v-model="checkbox5"
-        checked-color="#000"
-      >多选1 </jiemicc-checkbox>
-
-    </demo-wrapper>
-    <demo-wrapper title="自定义图标">
-      <jiemicc-checkbox v-model="checkbox6">
-        <template #icon="{checked}">
-          <img
-            :src="checked ? checkedUrl : unCheckedUrl"
-            alt=""
-            width="100%"
-          >
-        </template>
-        多选1 </jiemicc-checkbox>
-
-    </demo-wrapper>
-    <demo-wrapper title="多选框组">
-      <jiemicc-checkbox-group v-model="checkbox7">
-        <jiemicc-checkbox
-          :label="1"
-          checked
-        >多选1 </jiemicc-checkbox>
-        <jiemicc-checkbox :label="2">多选2</jiemicc-checkbox>
-        <jiemicc-checkbox :label="3">多选3</jiemicc-checkbox>
-      </jiemicc-checkbox-group>
-    </demo-wrapper>
-    <demo-wrapper title="多选框内联">
-      <jiemicc-checkbox-group
-        v-model="checkbox8"
-        inline
-      >
-        <jiemicc-checkbox
-          :label="1"
-          checked
-        >多选1 </jiemicc-checkbox>
-        <jiemicc-checkbox :label="2">多选2</jiemicc-checkbox>
-        <jiemicc-checkbox :label="3">多选3</jiemicc-checkbox>
-      </jiemicc-checkbox-group>
-    </demo-wrapper>
-    <demo-wrapper title="设置数量限制">
-      <jiemicc-checkbox-group
-        v-model="checkbox9"
-        :min="1"
-        :max="5"
-      >
-        <jiemicc-checkbox
-          :label="1"
-          checked
-        >多选1 </jiemicc-checkbox>
-        <jiemicc-checkbox :label="2">多选2</jiemicc-checkbox>
-        <jiemicc-checkbox :label="3">多选3</jiemicc-checkbox>
-        <jiemicc-checkbox :label="4">多选4</jiemicc-checkbox>
-        <jiemicc-checkbox :label="5">多选5</jiemicc-checkbox>
-        <jiemicc-checkbox :label="6">多选6</jiemicc-checkbox>
-      </jiemicc-checkbox-group>
-    </demo-wrapper>
-    <demo-wrapper title="全选和反选">
-      <jiemicc-checkbox-group
-        v-model="checkbox10"
-        inline
-        ref="checkbox10"
-      >
-        <jiemicc-checkbox
-          :label="1"
-          checked
-        >多选1 </jiemicc-checkbox>
-        <jiemicc-checkbox :label="2">多选2</jiemicc-checkbox>
-        <jiemicc-checkbox :label="3">多选3</jiemicc-checkbox>
-        <jiemicc-checkbox :label="4">多选4</jiemicc-checkbox>
-        <jiemicc-checkbox :label="5">多选5</jiemicc-checkbox>
-        <jiemicc-checkbox :label="6">多选6</jiemicc-checkbox>
-      </jiemicc-checkbox-group>
-      <jiemicc-button
-        @click="$refs.checkbox10.chooseToggle(true)"
-        class="m-20"
-      >全选</jiemicc-button>
-      <jiemicc-button
-        @click="$refs.checkbox10.chooseToggle()"
-        type="primary"
-      >反选</jiemicc-button>
-
-    </demo-wrapper>
-    <demo-wrapper title="单配单元格组件使用">
-      <jiemicc-checkbox-group
-        v-model="checkbox11"
-        ref="checkbox11"
-      >
-        <jiemicc-cell-group
-          clickable
-
+     <demo-wrapper title="插入按钮">
+      <jiemicc-cell-group clickable>
+        <jiemicc-field
+          label="用户名"
+          type="text"
+          v-model="field13"
+          left-icon="aixin"
+          placeholder="请输入用户名"
+          required
+          clearable
         >
-          <jiemicc-cell
-             v-for="(value,index) in checkList"
-            :key="index"
-            :title="'多选框'+value"
-            @click="$refs.checkbox11.chooseItem(index)"
-          >
-            <jiemicc-checkbox :label="value"> {{''}} </jiemicc-checkbox>
-          </jiemicc-cell>
-        </jiemicc-cell-group>
-      </jiemicc-checkbox-group>
+         <template #button>
+             <jiemicc-button size="small" type="info" > 发送验证码</jiemicc-button>
+         </template>
+        </jiemicc-field>
+
+      </jiemicc-cell-group>
+    </demo-wrapper>
+     <demo-wrapper title="文本域高度自适应">
+        <jiemicc-field
+          class="jiemicc-demo-textarea"
+          label="留言"
+          type="textarea"
+          v-model="field14"
+          left-icon="aixin"
+          placeholder="请输入留言"
+          maxlength="10"
+          rows="1"
+          required
+          autosize
+        ></jiemicc-field>
+
     </demo-wrapper>
 
   </div>
@@ -145,42 +146,36 @@
 
 <script >
 import DemoWrapper from '@/components/common/DemoWrapper.vue';
-import JiemiccCheckbox from '@/components/lib/checkbox/JiemiccCheckbox.vue';
-import JiemiccCheckboxGroup from '@/components/lib/checkbox/JiemiccCheckboxGroup.vue';
-import JiemiccCell from '@/components/lib/cell/JiemiccCell.vue';
 import JiemiccCellGroup from '@/components/lib/cell/JiemiccCellGroup.vue';
 import JiemiccButton from '@/components/lib/button/JiemiccButton.vue';
+import JiemiccField from '@/components/lib/field/JiemiccField.vue';
 
 export default {
   name: 'Demo',
   components: {
     DemoWrapper,
-    JiemiccCheckbox,
-    JiemiccCheckboxGroup,
-    JiemiccCell,
     JiemiccCellGroup,
     JiemiccButton,
+    JiemiccField,
   },
   props: {},
   data() {
     return {
-      checkbox0: true,
-      checkbox1: true,
-      checkbox2: true,
-      checkbox3: true,
-      checkbox4: true,
-      checkbox5: true,
-      checkbox6: true,
-      checkbox7: [],
-      checkbox8: [],
-      checkbox9: [],
-      checkbox10: [],
-      checkbox11: [],
-      checkList: ['1', '2', '3', '4'],
-      checkedUrl:
-        'https://img.zcool.cn/community/01051955434ac00000019ae9a9a369.jpg@2o.jpg',
-      unCheckedUrl:
-        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578969385&di=638b138fa31511b8ee2850bd15cd5cce&imgtype=jpg&er=1&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F90%2F47%2F9256efcbf458c23.jpg',
+      field0: '123',
+      field1: '',
+      field2: '',
+      field3: '',
+      field4: '',
+      field5: '',
+      field6: '123',
+      field7: '123',
+      field8: '',
+      field9: '123',
+      field10: '123',
+      field11: '',
+      field12: '123',
+      field13: '123',
+      field14: '',
     };
   },
   methods: {},
@@ -189,11 +184,10 @@ export default {
 <style lang='scss' scoped>
 .jiemicc-demo {
   min-height: calc(100vh - 100px);
-  /deep/ .jiemicc-demo-wrapper:not(:last-child) {
-    .jiemcc-demo-wrapper__content {
-      margin: 0 16px;
-    }
+  .jiemicc-demo-textarea{
+     /deep/ .jiemicc-cell-main{
+       align-items: flex-start;
+     }
   }
-
 }
 </style>

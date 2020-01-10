@@ -2,7 +2,7 @@
   <label
     ref="radioWrapper"
     class="jiemicc-radio"
-    :class="[{'jiemicc-radio__disabled': radioDisabled},'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':radioChecked}]"
+    :class="[{'jiemicc-radio__disabled': radioDisabled},{'jiemicc-checkbox__m0':!$parent.$options.componentName || !$parent.$options.componentName === 'JiemiccChockboxGroup' },'jiemicc-radio__'+shape,{'jiemicc-radio__custom-icon':$scopedSlots.icon},{'jiemicc-radio_checked':radioChecked}]"
     :style="{'--checked-color': radioCheckedColor,display: inline ? 'inline-block': 'block'}"
     @click.stop="$emit('click')"
   >
@@ -32,10 +32,7 @@
     </div>
     <span class="jiemicc-radio_label">
 
-      <slot></slot>
-      <template v-if="!$slots.default">
-        {{label}}
-      </template>
+      <slot>{{label}}</slot>
     </span>
   </label>
 </template>
@@ -204,6 +201,9 @@ export default {
       border: none !important;
       background: transparent !important;
     }
+  }
+  &.jiemicc-checkbox__m0{
+    margin-top: 0;
   }
   .jiemicc-radio-icon-enter,
   .jiemicc-radio-icon-leave-to {

@@ -63,6 +63,9 @@ export default {
           }, {
             name: 'Checkbox 多选框',
             link: 'checkbox',
+          }, {
+            name: 'Field 多选框',
+            link: 'field',
           }],
         },
       ],

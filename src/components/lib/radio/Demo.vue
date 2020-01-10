@@ -1,19 +1,13 @@
 <template>
   <div class="jiemicc-demo ">
-    <demo-wrapper title="基础用法" >
+    <demo-wrapper title="基础用法">
       <jiemicc-radio-group v-model="radio0">
-        <jiemicc-radio
-          label="1"
-        >单选1 </jiemicc-radio>
-        <jiemicc-radio
-          label="2"
-        >单选2</jiemicc-radio>
-        <jiemicc-radio
-          label="3"
-        >单选3</jiemicc-radio>
+        <jiemicc-radio label="1">单选1 </jiemicc-radio>
+        <jiemicc-radio label="2">单选2</jiemicc-radio>
+        <jiemicc-radio label="3">单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
-    <demo-wrapper title="默认选中" >
+    <demo-wrapper title="默认选中">
       <jiemicc-radio-group v-model="radio10">
         <jiemicc-radio
           label="1"
@@ -23,9 +17,7 @@
           label="2"
           checked
         >单选2</jiemicc-radio>
-        <jiemicc-radio
-          label="3"
-        >单选3</jiemicc-radio>
+        <jiemicc-radio label="3">单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="单选框内联">
@@ -33,15 +25,9 @@
         v-model="radio1"
         inline
       >
-        <jiemicc-radio
-          label="1"
-        >单选1 </jiemicc-radio>
-        <jiemicc-radio
-          label="2"
-        >单选2</jiemicc-radio>
-        <jiemicc-radio
-          label="3"
-        >单选3</jiemicc-radio>
+        <jiemicc-radio label="1">单选1 </jiemicc-radio>
+        <jiemicc-radio label="2">单选2</jiemicc-radio>
+        <jiemicc-radio label="3">单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="全部禁用">
@@ -53,12 +39,8 @@
           label="1"
           disabled
         >单选1 </jiemicc-radio>
-        <jiemicc-radio
-          label="2"
-        >单选2</jiemicc-radio>
-        <jiemicc-radio
-          label="3"
-        >单选3</jiemicc-radio>
+        <jiemicc-radio label="2">单选2</jiemicc-radio>
+        <jiemicc-radio label="3">单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="禁用状态">
@@ -67,12 +49,8 @@
           label="1"
           disabled
         >单选1 </jiemicc-radio>
-        <jiemicc-radio
-          label="2"
-        >单选2</jiemicc-radio>
-        <jiemicc-radio
-          label="3"
-        >单选3</jiemicc-radio>
+        <jiemicc-radio label="2">单选2</jiemicc-radio>
+        <jiemicc-radio label="3">单选3</jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
     <demo-wrapper title="自定义形状">
@@ -102,10 +80,7 @@
     <demo-wrapper title="自定义图标">
       <jiemicc-radio-group v-model="radio6">
 
-
-        <jiemicc-radio
-          label="1"
-        >
+        <jiemicc-radio label="1">
           <template #icon="{checked}">
             <img
               width="100%"
@@ -116,10 +91,7 @@
 
         </jiemicc-radio>
 
-
-        <jiemicc-radio
-          label="2"
-        >
+        <jiemicc-radio label="2">
           <template #icon="{checked}">
             <img
               width="100%"
@@ -130,28 +102,27 @@
         </jiemicc-radio>
       </jiemicc-radio-group>
     </demo-wrapper>
-    <demo-wrapper class="cell-demo" title="与cell一起使用" >
-       <jiemicc-radio-group v-model="radio7">
+    <demo-wrapper
+      class="cell-demo"
+      title="与cell一起使用"
+    >
+      <jiemicc-radio-group v-model="radio7">
         <jiemicc-cell-group clickable>
-        <jiemicc-cell
-          title="单选框1"
-          @click="radio7 = '1'"
-        >
-         <jiemicc-radio
-          label="1"
-        > {{''}} </jiemicc-radio>
-        </jiemicc-cell>
-        <jiemicc-cell
-          title="单选框2"
-          @click="radio7 = '2'"
+          <jiemicc-cell
+            title="单选框1"
+            @click="radio7 = '1'"
+          >
+            <jiemicc-radio label="1"> {{''}} </jiemicc-radio>
+          </jiemicc-cell>
+          <jiemicc-cell
+            title="单选框2"
+            @click="radio7 = '2'"
+          >
+            <jiemicc-radio label="2">{{''}}</jiemicc-radio>
+          </jiemicc-cell>
 
-        >
-         <jiemicc-radio
-          label="2"
-        >{{''}}</jiemicc-radio></jiemicc-cell>
-
-      </jiemicc-cell-group>
-       </jiemicc-radio-group>
+        </jiemicc-cell-group>
+      </jiemicc-radio-group>
     </demo-wrapper>
   </div>
 </template>
@@ -184,13 +155,13 @@ export default {
       radio6: '',
       radio7: '',
       radio10: '',
-      checkedUrl: 'https://img.zcool.cn/community/01051955434ac00000019ae9a9a369.jpg@2o.jpg',
-      unCheckedUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578969385&di=638b138fa31511b8ee2850bd15cd5cce&imgtype=jpg&er=1&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F90%2F47%2F9256efcbf458c23.jpg',
+      checkedUrl:
+        'https://img.zcool.cn/community/01051955434ac00000019ae9a9a369.jpg@2o.jpg',
+      unCheckedUrl:
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578969385&di=638b138fa31511b8ee2850bd15cd5cce&imgtype=jpg&er=1&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F90%2F47%2F9256efcbf458c23.jpg',
     };
   },
-  methods: {
-
-  },
+  methods: {},
 };
 </script>
 <style lang='scss' scoped>
@@ -199,7 +170,10 @@ export default {
   /deep/ .jiemcc-demo-wrapper__content {
     margin: 0 16px;
   }
-  .cell-demo /deep/ .jiemcc-demo-wrapper__content{
+  /deep/ .jiemicc-cell-main {
+    align-items: center;
+  }
+  .cell-demo /deep/ .jiemcc-demo-wrapper__content {
     margin: 0;
   }
   .icon-wrapper {

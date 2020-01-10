@@ -8,7 +8,8 @@
     {'jiemicc-checkbox__custom-icon':$scopedSlots.icon},
     {'jiemicc-checkbox__checked':checkboxChecked},
     {'jiemicc-checkbox__inline':inline},
-    {'jimeicc-checkbox__label-disabled': checkboxLabelDisabled}
+    {'jimeicc-checkbox__label-disabled': checkboxLabelDisabled},
+    {'jiemicc-checkbox__m0':!$parent.$options.componentName || !$parent.$options.componentName === 'JiemiccChockboxGroup' }
     ]"
     :style="{'--checked-color': checkboxCheckedColor}"
     @click.stop
@@ -44,10 +45,7 @@
       class="jiemicc-checkbox__label"
       @click="labelDisabled && $event.preventDefault();"
     >
-      <slot></slot>
-      <template v-if="!$scopedSlots.default">
-        {{label}}
-      </template>
+      <slot>{{label}}</slot>
     </span>
   </label>
 </template>
@@ -236,6 +234,9 @@ export default {
   &.jiemicc-checkbox__inline {
     display: inline-block;
   }
+  &.jiemicc-checkbox__m0{
+      margin-top: 0;
+  }
   .jiemicc-checkbox-icon-enter,
   .jiemicc-checkbox-icon-leave-to {
     opacity: 0;
@@ -244,5 +245,6 @@ export default {
   .jiemicc-checkbox-icon-leave-active {
     transition: opacity 0.3s ease-out;
   }
+
 }
 </style>

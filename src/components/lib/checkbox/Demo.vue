@@ -194,6 +194,9 @@ export default {
       margin: 0 16px;
     }
   }
+   /deep/ .jiemicc-cell-main{
+     align-items: center;
+  }
 
 }
 </style>

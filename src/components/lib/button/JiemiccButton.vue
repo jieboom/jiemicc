@@ -8,16 +8,17 @@
   >
     <template v-if="!this.loading">
       <i
-        :class="`iconfont icon-${this.icon}`"
+        :class="`iconfont icon-${icon}`"
         style="vertical-align:middle;"
+        v-if="icon"
       ></i>
       <slot></slot>
     </template>
     <template v-else>
       <i
-        :class="`iconfont icon-loading-${this.loadingIcon}`"
+        :class="`iconfont icon-loading-${loadingIcon}`"
         style="vertical-align:middle;"
-      ></i><span style="vertical-align:middle;margin-left: 5px;">{{this.loadingText}}</span>
+      ></i><span style="vertical-align:middle;margin-left: 5px;">{{loadingText}}</span>
     </template>
 
   </button>
@@ -103,6 +104,7 @@ export default {
   border: none;
   border: 1px solid var(--color);
   background: var(--color);
+  white-space: nowrap;
   &.jiemicc-button--plain {
     color: var(--color);
     background: #fff;
