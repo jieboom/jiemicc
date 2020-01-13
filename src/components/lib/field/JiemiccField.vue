@@ -1,81 +1,3 @@
-<template>
-  <jiemicc-cell
-    flex-auto
-    class="jiemicc-field"
-    :class="{'jiemicc-field__required':required}"
-  >
-    <template #title>
-      <div
-        class="jiemicc-field__label"
-        v-if="label"
-        :class="[labelClass]"
-        :style="{width:labelWidth,'text-align':labelAlign}"
-      >
-        <jiemicc-icon
-          :name="leftIcon"
-          v-if="leftIcon"
-          @click="leftIconClick('$event')"
-        ></jiemicc-icon>
-        <span class="jiemicc-field__label-main">{{label}}</span>
-      </div>
-    </template>
-    <div class="jiemicc-field__main">
-      <textarea
-        ref="input"
-        class="jiemicc-field__control"
-        v-if="fieldType === 'textarea'"
-        :readonly="readonly"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        :rows="rows"
-        v-model.trim="model"
-        :maxlength="maxlength"
-        v-on="inputListener"
-      ></textarea>
-      <input
-        ref="input"
-        v-else
-        class="jiemicc-field__control"
-        :type="fieldType"
-        :placeholder="placeholder"
-        :pattern="pattern"
-        :readonly="readonly"
-        :disabled="disabled"
-        v-model.trim="model"
-        :maxlength="maxlength"
-        v-on="inputListener"
-      >
-      <div class="jiemicc-field__right-icon">
-        <jiemicc-icon
-          name="chenggong"
-          class="ml-10 jiemicc-field__clear"
-          v-if="clearable && model && focused"
-          @click.native="onClear('$event')"
-        ></jiemicc-icon>
-        <jiemicc-icon
-          :name="rightIcon"
-          v-if="rightIcon"
-          class="ml-10"
-          @click="rightIconClick('$event')"
-        ></jiemicc-icon>
-      </div>
-      <slot name="button"></slot>
-    </div>
-    <div
-      class="jiemicc-field__count"
-      v-if="showLimitCount && maxlength"
-    >
-      {{value.length}}/{{maxlength}}
-    </div>
-    <div
-      class="jiemicc-field__error"
-      v-if="errorMessage"
-    >
-      {{errorMessage}}
-    </div>
-
-  </jiemicc-cell>
-</template>
 
 <script >
 import JiemiccCell from '@/components/lib/cell/JiemiccCell.vue';
@@ -89,26 +11,15 @@ export default {
     JiemiccCell,
     JiemiccIcon,
   },
+
   props: {
     value: String,
-    placeholder: String,
     type: {
       type: String,
       default: 'text',
     },
     label: String,
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+    maxlength: [String, Number],
     leftIcon: String,
     rightIcon: String,
     clearable: {
@@ -116,9 +27,7 @@ export default {
       default: false,
     },
     errorMessage: String,
-    rows: String,
     autosize: [Boolean, Object],
-    maxlength: String,
     showLimitCount: Boolean,
     labelWidth: String,
     labelClass: String,
@@ -259,6 +168,38 @@ export default {
     rightIconClick() {
       this.$emit('right-icon-click');
     },
+    genInput() {
+      const { type } = this;
+
+      const inputProps = {
+        ref: 'input',
+        class: ['jiemicc-field__control'],
+        attrs: {
+          ...this.$attrs,
+        },
+        on: this.inputListeners,
+        directives: [{
+          name: 'model',
+          value: this.model,
+        }],
+      };
+      if (type === 'textarea') {
+        return <textarea {...inputProps} > </textarea>;
+      }
+
+      let inputType = type;
+      if (type !== 'digit') {
+        inputType = type;
+      } else if (systemVali('ios')) {
+        // ios number模式下设置pattern可以只输入整数
+        inputType = 'number';
+        inputProps.attrs.pattern = '\\d*';
+      } else {
+        // Android 无法阻止小数点输入,所以使用tel模式
+        inputType = 'tel';
+      }
+      return <input type={inputType} {...inputProps}></input>;
+    },
     genLimitCount() {
       if (this.showLimitCount && this.maxlength) {
         return <div
@@ -270,11 +211,69 @@ export default {
     },
     genRightIcon() {
       if (this.rightIcon) {
-        return <JiemiccIcon name={this.rightIcon} vOn:click_native={this.rightIconClick(this.$event)}></JiemiccIcon>;
+        return <JiemiccIcon name={this.rightIcon} onClick={this.rightIconClick}></JiemiccIcon>;
+      }
+    },
+    genLeftIcon() {
+      if (this.leftIcon) {
+       <jiemicc-icon
+          name={this.leftIcon}
+          onClick={this.leftIconClick}
+        ></jiemicc-icon>;
+      }
+    },
+    genClearIcon() {
+      if (this.clearable && this.model && this.focused) {
+        return <jiemicc-icon
+          name="chenggong"
+          class="ml-10 jiemicc-field__clear"
+          onClick="onClear"
+        ></jiemicc-icon>;
+      }
+    },
+    genInputError() {
+      if (this.errorMessage) {
+        return <div
+      class="jiemicc-field__error"
+    >
+      { this.errorMessage }
+    </div>;
       }
     },
 
+
   },
+  render() {
+    return <JiemiccCell
+    flex-auto
+     class={['jiemicc-field', { 'jiemicc-field__required': this.required }]}
+
+    >
+    <template slot="title">
+      <div
+        class="jiemicc-field__label"
+        class={[this.labelClass]}
+        style={{ width: this.labelWidth, 'text-align': this.labelAlign }}
+      >
+        {this.genLeftIcon()}
+        <span class="jiemicc-field__label-main">{ this.label }</span>
+      </div>
+    </template>
+    <template slot="default">
+     <div class="jiemicc-field__main">
+      {this.genInput()}
+      <div class="jiemicc-field__right-icon">
+        {this.genClearIcon()}
+         {this.genClearIcon()}
+      </div>
+      <slot name="button"></slot>
+    </div>
+     {this.genLimitCount()}
+     {this.genInputError()}
+     </template>
+    </JiemiccCell>;
+  },
+
 };
 </script>
 <style lang='scss' scoped>
