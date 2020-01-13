@@ -1,6 +1,7 @@
 
 <template>
   <div class="jiemicc-demo ">
+
     <demo-wrapper title="基础用法">
       <jiemicc-field
         v-model="field0"
@@ -30,12 +31,23 @@
         <jiemicc-field
           label="数字"
           type="number"
+          maxlength="10"
           v-model="field4"
           placeholder="请输入数字"
         ></jiemicc-field>
         <jiemicc-field
           label="密码"
+
+          show-limit-count
           type="password"
+          v-model="field5"
+          placeholder="请输入密码"
+        ></jiemicc-field>
+          <jiemicc-field
+          label="搜索"
+
+          show-limit-count
+          type="search"
           v-model="field5"
           placeholder="请输入密码"
         ></jiemicc-field>
@@ -117,6 +129,7 @@
           placeholder="请输入用户名"
           required
           clearable
+          class="insert-button"
         >
          <template #button>
              <jiemicc-button size="small" type="info" > 发送验证码</jiemicc-button>
@@ -133,13 +146,27 @@
           v-model="field14"
           left-icon="aixin"
           placeholder="请输入留言"
-          maxlength="10"
           rows="1"
           required
           autosize
         ></jiemicc-field>
 
     </demo-wrapper>
+     <demo-wrapper title="显示字数统计">
+        <jiemicc-field
+          class="jiemicc-demo-textarea"
+          label="留言"
+          type="textarea"
+          v-model="field15"
+          left-icon="aixin"
+          placeholder="请输入留言"
+          required
+          :autosize="{minHeight: 50,maxHeight:100}"
+          show-limit-count
+        ></jiemicc-field>
+
+    </demo-wrapper>
+
 
   </div>
 </template>
@@ -176,6 +203,7 @@ export default {
       field12: '123',
       field13: '123',
       field14: '',
+      field15: '',
     };
   },
   methods: {},
@@ -188,6 +216,9 @@ export default {
      /deep/ .jiemicc-cell-main{
        align-items: flex-start;
      }
+  }
+  .insert-button /deep/ .jiemicc-cell-main{
+    align-items: center;
   }
 }
 </style>

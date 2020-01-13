@@ -31,7 +31,6 @@
       </transition>
     </div>
     <span class="jiemicc-radio_label">
-
       <slot>{{label}}</slot>
     </span>
   </label>

@@ -7,7 +7,7 @@
     :class="[{'flex-auto':flexAuto}]"
   >
     <div
-      class="jiemicc-cell-main d-flex jc-between ai-center "
+      class="jiemicc-cell-main d-flex jc-between  "
       @click="to&&$router.push(to);"
     >
       <span class="jiemicc-cell-main__title">
