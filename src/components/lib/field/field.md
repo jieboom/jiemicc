@@ -7,6 +7,7 @@ fiel为基础输入组件,默认为text模式,也包含password , number,digit�
  1. iOS 可以调用原生键盘比较统一,
  2. Android 系统碎片化,国内的厂商禁用了谷歌键盘,效果不统一.
 整数模式中,ios使用number模式,并配合pattern,Android使用tel替代
+3. search类型下,在被form包裹情况下可调用search软键盘,input下监控keycode === 13 (搜索键),表单提交默认刷新页面,所以需要组织默认事件
 #### 输入框禁用
 设置readonly  用户不可更改输入值
 设置disabled  输入框不可使用

@@ -65,6 +65,9 @@ export default {
           }, {
             name: 'Field 多选框',
             link: 'field',
+          }, {
+            name: 'NumberKey 数字键盘',
+            link: 'number-keyboard',
           }],
         },
       ],

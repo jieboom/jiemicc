@@ -26,6 +26,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    required: Boolean,
     errorMessage: String,
     autosize: [Boolean, Object],
     showLimitCount: Boolean,
@@ -36,7 +37,6 @@ export default {
   data() {
     return {
       pattern: '',
-      fieldType: '',
       selfModel: '',
       focused: false,
     };
@@ -61,26 +61,10 @@ export default {
         blur: this.onBlur,
         keypress: this.onkeypress,
       };
-
       return listeners;
     },
   },
   watch: {
-    type: {
-      immediate: true,
-      handler(type) {
-        if (type !== 'digit') {
-          this.fieldType = type;
-        } else if (systemVali('ios')) {
-          // ios number模式下设置pattern可以只输入整数
-          this.fieldType = 'number';
-          this.pattern = '\\d*';
-        } else {
-          // Android 无法阻止小数点输入,所以使用tel模式
-          this.fieldType = 'tel';
-        }
-      },
-    },
     value() {
       this.adjustSize();
     },
@@ -116,10 +100,9 @@ export default {
       const target = this.$refs.input;
       if (!target) return false;
       let { value } = target;
-      const { maxlength, fieldType, formatFn } = this;
-
+      const { maxlength, type, formatFn } = this;
       // number 类型的 input,使用maxlength无效
-      if (fieldType === 'number' && Number(maxlength) < value.length) {
+      if (type === ('number' || 'digit') && Number(maxlength) < value.length) {
         value = value.substring(0, Number(maxlength));
       }
       // format函数
@@ -156,7 +139,7 @@ export default {
       this.$emit('input', '');
     },
     onkeypress(event) {
-      if (this.fieldType === 'search' && event.keyCode === 13) {
+      if (this.type === 'search' && event.keyCode === 13) {
         event.preventDefault();
         this.$refs.input.blur();
       }
@@ -176,15 +159,14 @@ export default {
         class: ['jiemicc-field__control'],
         attrs: {
           ...this.$attrs,
+          maxlength: this.maxlength,
         },
-        on: this.inputListeners,
-        directives: [{
-          name: 'model',
-          value: this.model,
-        }],
+        on: this.inputListener,
+
+
       };
       if (type === 'textarea') {
-        return <textarea {...inputProps} > </textarea>;
+        return <textarea {...inputProps} vModel={this.model} > </textarea>;
       }
 
       let inputType = type;
@@ -198,82 +180,83 @@ export default {
         // Android 无法阻止小数点输入,所以使用tel模式
         inputType = 'tel';
       }
-      return <input type={inputType} {...inputProps}></input>;
+      return <input type={inputType} {...inputProps} vModel={this.model}/>;
     },
     genLimitCount() {
       if (this.showLimitCount && this.maxlength) {
-        return <div
-      class="jiemicc-field__count"
-    >
-      {this.value.length}/{this.maxlength}
-    </div>;
+        return (
+          <div class="jiemicc-field__count">
+            {this.value.length}/{this.maxlength}
+          </div>
+        );
       }
     },
     genRightIcon() {
       if (this.rightIcon) {
-        return <JiemiccIcon name={this.rightIcon} onClick={this.rightIconClick}></JiemiccIcon>;
+        return (
+          <JiemiccIcon name={this.rightIcon} onClick={this.rightIconClick} />
+        );
       }
     },
     genLeftIcon() {
       if (this.leftIcon) {
-       <jiemicc-icon
-          name={this.leftIcon}
-          onClick={this.leftIconClick}
-        ></jiemicc-icon>;
+        return <jiemicc-icon name={this.leftIcon} onClick={this.leftIconClick} />;
       }
     },
     genClearIcon() {
       if (this.clearable && this.model && this.focused) {
-        return <jiemicc-icon
-          name="chenggong"
-          class="ml-10 jiemicc-field__clear"
-          onClick="onClear"
-        ></jiemicc-icon>;
+        return (
+          <jiemicc-icon
+            name="chenggong"
+            class="ml-10 jiemicc-field__clear"
+            onClick={this.onClear}
+          />
+        );
       }
     },
     genInputError() {
       if (this.errorMessage) {
-        return <div
-      class="jiemicc-field__error"
-    >
-      { this.errorMessage }
-    </div>;
+        return <div class="jiemicc-field__error">{this.errorMessage}</div>;
       }
     },
-
-
+    genTitleSlot() {
+      if (this.label) {
+        return <div
+              class={[this.labelClass, 'jiemicc-field__label']}
+              style={{ width: this.labelWidth, 'text-align': this.labelAlign }}
+            >
+              {this.genLeftIcon()}
+              <span class="jiemicc-field__label-main">{this.label}</span>
+            </div>;
+      }
+    },
   },
   render() {
-    return <JiemiccCell
-    flex-auto
-     class={['jiemicc-field', { 'jiemicc-field__required': this.required }]}
+    const titleSlot = this.genTitleSlot;
+    const scopedSlots = {
+      title: titleSlot,
+    };
 
-    >
-    <template slot="title">
-      <div
-        class="jiemicc-field__label"
-        class={[this.labelClass]}
-        style={{ width: this.labelWidth, 'text-align': this.labelAlign }}
+    return (
+      <JiemiccCell
+        flex-auto
+        class={['jiemicc-field', { 'jiemicc-field__required': this.required }]}
+        scopedSlots={scopedSlots}
       >
-        {this.genLeftIcon()}
-        <span class="jiemicc-field__label-main">{ this.label }</span>
-      </div>
-    </template>
-    <template slot="default">
-     <div class="jiemicc-field__main">
-      {this.genInput()}
-      <div class="jiemicc-field__right-icon">
-        {this.genClearIcon()}
-         {this.genClearIcon()}
-      </div>
-      <slot name="button"></slot>
-    </div>
-     {this.genLimitCount()}
-     {this.genInputError()}
-     </template>
-    </JiemiccCell>;
-  },
 
+          <div class="jiemicc-field__main">
+            {this.genInput()}
+            <div class="jiemicc-field__right-icon">
+              {this.genClearIcon()}
+              {this.genRightIcon()}
+            </div>
+            {this.$slots.button}
+          </div>
+          {this.genLimitCount()}
+          {this.genInputError()}
+      </JiemiccCell>
+    );
+  },
 };
 </script>
 <style lang='scss' scoped>

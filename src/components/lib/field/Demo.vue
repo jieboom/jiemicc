@@ -44,7 +44,8 @@
           v-model="field5"
           placeholder="请输入密码"
         ></jiemicc-field>
-          <jiemicc-field
+         <form action="">
+            <jiemicc-field
           label="搜索"
 
           show-limit-count
@@ -52,6 +53,7 @@
           v-model="field5"
           placeholder="请输入密码"
         ></jiemicc-field>
+         </form>
 
       </jiemicc-cell-group>
     </demo-wrapper>
@@ -128,13 +130,13 @@
           v-model="field13"
           left-icon="aixin"
           placeholder="请输入用户名"
-          required
           clearable
           class="insert-button"
         >
          <template #button>
              <jiemicc-button size="small" type="info" > 发送验证码</jiemicc-button>
          </template>
+
         </jiemicc-field>
 
       </jiemicc-cell-group>
@@ -148,7 +150,6 @@
           left-icon="aixin"
           placeholder="请输入留言"
           rows="1"
-          required
           autosize
         ></jiemicc-field>
 
@@ -161,9 +162,9 @@
           v-model="field15"
           left-icon="aixin"
           placeholder="请输入留言"
-          required
           :autosize="{minHeight: 50,maxHeight:100}"
           show-limit-count
+          maxlength='10'
         ></jiemicc-field>
 
     </demo-wrapper>
