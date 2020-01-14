@@ -1,4 +1,9 @@
 <script >
+import createNamespace from '@/components/utils/create';
+
+const [bem] = createNamespace('number-keyboard');
+console.log(bem('title'));
+
 export default {
   name: 'JiemiccNumberkey',
   props: {
@@ -24,12 +29,17 @@ export default {
   methods: {
     genkeyboardTitle() {
       if (this.title) {
-        return <div class="jiemicc-number-keyboard__title">
+        return <div class={bem('title')}>
               {this.$slots.title}
-              <span class="jiemicc-number">{this.title}</span>
+              <span class={bem('title', ['main'])}>{this.title}</span>
            </div>;
       }
     },
+  },
+  render() {
+    return <div class={bem()}>
+        {this.genkeyboardTitle()}
+    </div>;
   },
 };
 </script>

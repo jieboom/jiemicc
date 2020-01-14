@@ -13,7 +13,8 @@ module.exports = {
     'linebreak-style':'off',
     'max-len':'off',
     'no-unused-expressions': 'off',
-    'consistent-return':'off'
+    'consistent-return':'off',
+    'no-param-reassign': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint',

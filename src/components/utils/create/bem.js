@@ -10,10 +10,22 @@
  * bem('text',['red]) jiemicc__text--red
  * bem('text',['red','green']) === jiemicc__text--red  jiemicc__text--green
  */
+
 const blockLink = '__';
 const modifyLink = '--';
 const joinBlock = (name, block) => (block ? name + blockLink + block : name);
-
+const joinModify = (name, modify) => modify.map(el => name + modifyLink + el);
 const createBemNamePrefix = name => (block, modify) => {
-  const className = '';
+  if (typeof block !== 'string' && Array.isArray(block)) return;
+  if (modify && !Array.isArray(modify)) return false;
+
+  let className = '';
+  if (block && Array.isArray(block)) {
+    modify = block;
+    block = '';
+  }
+  className = joinBlock(name, block);
+  return modify ? joinModify(className, modify) : className;
 };
+
+export default createBemNamePrefix;
