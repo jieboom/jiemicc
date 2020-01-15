@@ -164,7 +164,9 @@ $font-sizes: (
 .d-b {
   display: block;
 }
-
+.d-none{
+  display: none; 
+}
 // flex
 
 .d-flex {
@@ -298,6 +300,7 @@ $spacing-directions: (
     display: inline-block;
     content: "";
     position: absolute;
+    pointer-events: none;
     top: -50%;
     bottom: -50%;
     right: -50%;
@@ -305,9 +308,34 @@ $spacing-directions: (
     border: 0 solid;
     z-index: 1;
     transform: scale(0.5);
+    border-color: #ebedf0;
   }
 }
-
+.jiemicc-hairline {
+  &::after {
+    border-width: 1px ;
+  }
+}
+.jiemicc-hairline-topbottom {
+  &::after {
+    border-width: 1px 0;
+  }
+}
+.jiemicc-hairline-topleft {
+  &::after {
+    border-width: 1px 1px 0 0;
+  }
+}
+.jiemicc-hairline-bottom {
+  &::after {
+    border-bottom-width: 1px;
+  }
+}
+.jiemicc-hairline-top {
+  &::after {
+    border-top-width: 1px;
+  }
+}
 .over-hidden{
    overflow: hidden;
 }

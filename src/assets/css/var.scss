@@ -1,0 +1,68 @@
+  
+// Color Palette
+$black: #000;
+$white: #fff;
+$gray-1: #f7f8fa;
+$gray-2: #f2f3f5;
+$gray-3: #ebedf0;
+$gray-4: #dcdee0;
+$gray-5: #c8c9cc;
+$gray-6: #969799;
+$gray-7: #646566;
+$gray-8: #323233;
+$red: #ee0a24;
+$blue: #1989fa;
+$orange: #ff976a;
+$orange-dark: #ed6a0c;
+$orange-light: #fffbe8;
+$green: #07c160;
+
+
+//component color
+$text-color: $gray-8;
+$active-color:$gray-2;
+$actvie-opaticy:.7;
+$disabled-opacity: .5;
+$background-color:$gray-1;
+$background-color-light:#fafafa;
+
+// Padding
+$padding-base: 4px;
+$padding-xs: $padding-base * 2;
+$padding-sm: $padding-base * 3;
+$padding-md: $padding-base * 4;
+$padding-lg: $padding-base * 6;
+$padding-xl: $padding-base * 8;
+
+// Font
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-weight-bold: 500;
+$price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial, sans-serif;
+
+
+// number-keyboard
+$jiemicc-number-keyboard-title-bgcolor: $white;
+$jiemicc-number-keyboard-title-height: 30px;
+$jiemicc-number-keyboard-title-bgcolor:$white;
+$jiemicc-number-keyboard-title-done-color: $blue;
+$jiemicc-number-keyboard-title-done-font-size: $font-size-md;
+$jiemicc-number-keyboard-title-done-padding: 0 $padding-md 0 0;
+
+$jiemicc-number-keyboard-custom-handle-width:25%;
+$jiemicc-number-keyboard-key-width: 33.3333%;
+$jiemicc-number-keyboard-key-height: 50px;
+$jiemicc-number-keyboard-key-bgcolor: $white;
+$jiemicc-number-keyboard-key-font-size-delete: $font-size-md;
+$jiemicc-number-keyboard-key-bgcolor-delete: $gray-3;
+$jiemicc-number-keyboard-key-color: $gray-8;
+$jiemicc-number-keyboard-key-font-size: $padding-lg;
+$jiemicc-number-keyboard-key-width-big: 100%;
+$jiemicc-number-keyboard-key-height-big: 100px;
+$jiemicc-number-keyboard-key-font-size-big: $font-size-md;
+$jiemicc-number-keyboard-key-color-done: $white;
+$jiemicc-number-keyboard-key-bgcolor-done: $blue;
+$jiemicc-number-keyboard-key-long-done: 66.6666%;
+$jiemicc-number-keyboard-key-active: $gray-2;

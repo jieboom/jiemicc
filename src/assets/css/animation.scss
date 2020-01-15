@@ -1,0 +1,51 @@
+@keyframes slide-up-enter{
+    from{
+        transform: translateY(100%);
+    }
+}
+@keyframes slide-up-leave{
+    to{
+        transform: translateY(100%);
+    }
+}
+
+@keyframes slide-dowm-enter{
+    from{
+        transform: translateY(-100%);
+    }
+}
+@keyframes slide-down-leave{
+    to{
+        transform: translateY(-100%);
+    }
+}
+@keyframes slide-left-enter{
+    from{
+        transform: translateX(-100%);
+    }
+}
+@keyframes slide-left-leave{
+    to{
+        transform: translateY(-100%);
+    }
+}
+@keyframes slide-right-enter{
+    from{
+        transform: translateX(100%);
+    }
+}
+@keyframes slide-right-leave{
+    to{
+        transform: translateY(100%);
+    }
+}
+
+
+.jiemicc-slide-up{
+    &-enter-active{
+        animation: slide-up-enter .3s ease-out;
+    }
+    &-leave-active{
+        animation: slide-up-leave .3s ease-in;
+    }
+}

@@ -14,11 +14,16 @@
 const blockLink = '__';
 const modifyLink = '--';
 const joinBlock = (name, block) => (block ? name + blockLink + block : name);
-const joinModify = (name, modify) => modify.map(el => name + modifyLink + el);
+const joinModify = (name, modify) => {
+  if (typeof modify === 'string') {
+    return joinBlock(name, modify);
+  }
+  if (Array.isArray(modify)) {
+    return modify.map(el => name + modifyLink + el);
+  }
+};
 const createBemNamePrefix = name => (block, modify) => {
-  if (typeof block !== 'string' && Array.isArray(block)) return;
-  if (modify && !Array.isArray(modify)) return false;
-
+  if (typeof block !== 'string' && modify && !Array.isArray(block)) return;
   let className = '';
   if (block && Array.isArray(block)) {
     modify = block;
@@ -27,5 +32,4 @@ const createBemNamePrefix = name => (block, modify) => {
   className = joinBlock(name, block);
   return modify ? joinModify(className, modify) : className;
 };
-
 export default createBemNamePrefix;
