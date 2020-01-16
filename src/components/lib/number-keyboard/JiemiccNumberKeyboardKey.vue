@@ -9,13 +9,15 @@ export default {
     value: String,
     type: String,
     theme: String,
+    keyCode: String,
   },
   data() {
     return {};
   },
   methods: {
     keyClick() {
-      this.$emit('click', this.value);
+      const { value, keyCode } = this;
+      this.$emit('click', value, keyCode);
     },
   },
   render() {
@@ -60,7 +62,7 @@ export default {
   background: $jiemicc-number-keyboard-key-bgcolor;
   font-size: $jiemicc-number-keyboard-key-font-size;
   color: $jiemicc-number-keyboard-key-color;
-  &:active{
+  &:active:not(.jiemicc-number-keyboard__key--big){
       background-color: $jiemicc-number-keyboard-key-active;
   }
   &--delete {

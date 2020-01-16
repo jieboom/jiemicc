@@ -2,30 +2,31 @@
 import JiemiccNumberKeyboardKey from '@/components/lib/number-keyboard/JiemiccNumberKeyboardKey.vue';
 import createNamespace from '@/components/utils/create';
 
-
 const [bem] = createNamespace('number-keyboard');
 console.log(bem(['custom']));
-
 
 export default {
   name: 'JiemiccNumberkey',
   components: {
     JiemiccNumberKeyboardKey,
   },
-  model: {
-    prop: 'show',
-    event: 'change',
-  },
   props: {
     show: {
       type: Boolean,
       default: true,
     },
+    value: String,
     theme: String,
     title: String,
     extraKey: {
       type: String,
       default: '',
+    },
+    maxlength: [String, Array],
+    zIndex: String,
+    deleteText: {
+      type: String,
+      default: '删除',
     },
   },
   data() {
@@ -33,28 +34,86 @@ export default {
       selfModel: '',
     };
   },
+  computed: {
+    model: {
+      get() {
+        return this.value || this.selfModel;
+      },
+      set(val) {
+        this.value !== undefined
+          ? this.$emit('input', val)
+          : (this.selfModel = val);
+      },
+    },
+  },
+  watch: {
+    show(val) {
+      if (val === true) {
+        const { jiemiccNumberKeyboardArr } = window;
+        jiemiccNumberKeyboardArr.forEach((keyboard) => {
+          if (keyboard !== this) {
+            keyboard.$emit('update:show', false);
+          }
+        });
+
+        setTimeout(() => {
+          window.document.body.addEventListener('click', this.close);
+        }, 0);
+      } else {
+        window.document.body.removeEventListener('click', this.close);
+      }
+    },
+  },
+  created() {
+    window.jiemiccNumberKeyboardArr
+      ? window.jiemiccNumberKeyboardArr.push(this)
+      : (window.jiemiccNumberKeyboardArr = [this]);
+  },
+
   methods: {
-    keyClick(key) {
-      console.log(key);
+    keyClick(key, keyCode) {
+      this.$emit('key', key, keyCode);
+
+      const { maxlength, model } = this;
+      const len = model.length;
+      if (maxlength <= len) return false;
+      if (keyCode !== undefined && keyCode === '46') {
+        let deleteChar = '';
+        if (len > 0) {
+          const newVal = model.substring(0, len - 1);
+          deleteChar = model.charAt(len - 1);
+          this.$emit('input', newVal);
+        }
+        this.$emit('delete', deleteChar);
+        return;
+      }
+      if (keyCode && keyCode === '13') {
+        this.$emit('update:show', false);
+        return;
+      }
+      this.$emit('input', model + key);
     },
     close() {
-      this.$emit('change', false);
+      this.$emit('update:show', false);
+    },
+    onEvent(event) {
+      this.$emit(event);
     },
     genkeyboardTitle() {
       if (this.title && this.theme !== 'custom') {
         return (
-        <div
-          class={[
-            bem('title'),
-            { [bem('title', ['sloted'])]: this.$slots.title },
-            'jiemicc-hairline',
-          ]}
-        >
-          {this.$slots.title}
-          <span class={bem('title', ['done'])} onClick={this.close}>
-            {this.title}
-          </span>
-        </div>
+          <div
+            class={[
+              bem('title'),
+              { [bem('title', ['sloted'])]: this.$slots.title },
+              'jiemicc-hairline',
+            ]}
+          >
+            {this.$slots.title}
+            <span class={bem('title', ['done'])} onClick={this.close}>
+              {this.title}
+            </span>
+          </div>
         );
       }
     },
@@ -75,7 +134,11 @@ export default {
           <div class={bem('body')}>
             <div class={bem('input')}>
               {this.genkeyboardMain()}
-              <JiemiccNumberKeyboardKey value="0" onclick={this.keyClick} theme="custom"/>
+              <JiemiccNumberKeyboardKey
+                value="0"
+                onclick={this.keyClick}
+                theme="custom"
+              />
               <JiemiccNumberKeyboardKey
                 value={this.extraKey}
                 onclick={this.keyClick}
@@ -83,16 +146,18 @@ export default {
             </div>
             <div class={bem('handle')}>
               <JiemiccNumberKeyboardKey
-                value="删除"
+                value={this.deleteText}
                 onclick={this.keyClick}
                 type="delete"
                 theme="custom"
+                keyCode="46"
               />
               <JiemiccNumberKeyboardKey
                 value="完成"
                 onclick={this.keyClick}
                 type="done"
                 theme="custom"
+                keyCode="13"
               />
             </div>
           </div>
@@ -108,20 +173,37 @@ export default {
           />
           <JiemiccNumberKeyboardKey value="0" onclick={this.keyClick} />
           <JiemiccNumberKeyboardKey
-            value="删除"
+            value={this.deleteText}
             onclick={this.keyClick}
             type="delete"
+            keyCode="46"
           />
         </div>
       );
     },
   },
   render() {
+    const {
+      onEvent,
+    } = this;
+    const transitionProp = {
+      on: {
+        enter: () => onEvent('open'),
+        'after-enter': () => onEvent('show'),
+        leave: () => onEvent('close'),
+        'after-leave': () => onEvent('hide'),
+      },
+    };
     return (
-      <transition name="jiemicc-slide-up">
+      <transition
+      name = 'jiemicc-slide-up'
+        {...transitionProp}
+      >
         <div
           class={[bem(), { [bem(['custom'])]: this.theme === 'custom' }]}
           vShow={this.show}
+          style={{ 'z-index': this.zIndex }}
+          onClick={e => e.stopPropagation()}
         >
           {this.genkeyboardTitle()}
           {this.genKeyboardBody()}
@@ -146,7 +228,7 @@ export default {
     }
   }
   &__input {
-   flex: auto;
+    flex: auto;
   }
   &__handle {
     width: $jiemicc-number-keyboard-custom-handle-width;
