@@ -39,6 +39,8 @@ $font-size-xs: 10px;
 $font-size-sm: 12px;
 $font-size-md: 14px;
 $font-size-lg: 16px;
+$font-size-xl: 20px;
+
 $font-weight-bold: 500;
 $price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial, sans-serif;
 
@@ -66,4 +68,23 @@ $jiemicc-number-keyboard-key-color-done: $white;
 $jiemicc-number-keyboard-key-bgcolor-done: $blue;
 $jiemicc-number-keyboard-key-long-done: 66.6666%;
 $jiemicc-number-keyboard-key-active: $gray-2;
+
+
+
+//password-input
+$jiemicc-password-input-body-height: 60px;
+$jiemicc-password-input-key-bgcolor: $white;
+$jiemicc-password-input-body-font-size: $font-size-xl;
+$jiemicc-password-input-body-color: $gray-8;
+$jiemicc-password-input-body-mask-bgcolor: $black;
+$jiemicc-password-input-body-mask-height: 10px;
+
+$jiemicc-password-input-body-cursor-bgcolor: $gray-8;
+$jiemicc-password-input-body-cursor-height: 20px;
+$jiemicc-password-input-body-cursor-width: 1px;
+
+$jiemicc-password-input-info-height: 50px;
+$jiemicc-password-input-info-font-size: $font-size-lg;
+$jiemicc-password-input-info-color: $gray-6;
+$jiemicc-password-input-info-error-color: $red;
 

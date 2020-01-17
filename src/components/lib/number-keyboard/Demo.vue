@@ -76,7 +76,7 @@ export default {
       show4: false,
       value1: '',
       value2: '',
-      value3: '',
+      value3: '123',
       value4: '',
 
     };

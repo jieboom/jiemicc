@@ -47,24 +47,28 @@ export default {
     },
   },
   watch: {
-    show(val) {
-      if (val === true) {
-        const { jiemiccNumberKeyboardArr } = window;
-        jiemiccNumberKeyboardArr.forEach((keyboard) => {
-          if (keyboard !== this) {
-            keyboard.$emit('update:show', false);
-          }
-        });
+    show: {
+      immediate: true,
+      handler(val) {
+        if (val === true) {
+          const { jiemiccNumberKeyboardArr } = window;
+          jiemiccNumberKeyboardArr.forEach((keyboard) => {
+            if (keyboard !== this) {
+              keyboard.$emit('update:show', false);
+            }
+          });
 
-        setTimeout(() => {
-          window.document.body.addEventListener('click', this.close);
-        }, 0);
-      } else {
-        window.document.body.removeEventListener('click', this.close);
-      }
+          setTimeout(() => {
+            window.document.body.addEventListener('click', this.blur);
+          }, 0);
+        } else {
+          window.document.body.removeEventListener('click', this.blur);
+        }
+      },
+
     },
   },
-  created() {
+  beforeCreate() {
     window.jiemiccNumberKeyboardArr
       ? window.jiemiccNumberKeyboardArr.push(this)
       : (window.jiemiccNumberKeyboardArr = [this]);
@@ -76,7 +80,7 @@ export default {
 
       const { maxlength, model } = this;
       const len = model.length;
-      if (maxlength <= len) return false;
+
       if (keyCode !== undefined && keyCode === '46') {
         let deleteChar = '';
         if (len > 0) {
@@ -87,14 +91,20 @@ export default {
         this.$emit('delete', deleteChar);
         return;
       }
-      if (keyCode && keyCode === '13') {
-        this.$emit('update:show', false);
-        return;
+      // if (keyCode && keyCode === '13') {
+      //   this.$emit('update:show', false);
+      //   return;
+      // }
+      if (!maxlength || maxlength > len) {
+        this.$emit('input', model + key);
       }
-      this.$emit('input', model + key);
+    },
+    blur() {
+      this.$emit('update:show', false);
     },
     close() {
       this.$emit('update:show', false);
+      this.$emit('close');
     },
     onEvent(event) {
       this.$emit(event);
@@ -154,7 +164,7 @@ export default {
               />
               <JiemiccNumberKeyboardKey
                 value="完成"
-                onclick={this.keyClick}
+                onclick={this.close}
                 type="done"
                 theme="custom"
                 keyCode="13"
@@ -190,7 +200,7 @@ export default {
       on: {
         enter: () => onEvent('open'),
         'after-enter': () => onEvent('show'),
-        leave: () => onEvent('close'),
+        leave: () => onEvent('blur'),
         'after-leave': () => onEvent('hide'),
       },
     };

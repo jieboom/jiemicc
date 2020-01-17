@@ -68,6 +68,12 @@ export default {
           }, {
             name: 'NumberKeyboard 数字键盘',
             link: 'number-keyboard',
+          }, {
+            name: 'PasswordInput 密码输入框',
+            link: 'password-input',
+          }, {
+            name: 'Picker 选择器',
+            link: 'picker',
           }],
         },
       ],

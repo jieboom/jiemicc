@@ -331,9 +331,20 @@ $spacing-directions: (
     border-bottom-width: 1px;
   }
 }
+
 .jiemicc-hairline-top {
   &::after {
     border-top-width: 1px;
+  }
+}
+.jiemicc-hairline-left {
+  &::after {
+    border-left-width: 1px;
+  }
+}
+.jiemicc-hairline-right {
+  &::after {
+    border-right-width: 1px;
   }
 }
 .over-hidden{
