@@ -8,6 +8,7 @@ import '@/assets/font/iconfont.css';
 
 Vue.config.productionTip = false;
 
+
 new Vue({
   router,
   store,
