@@ -11,8 +11,17 @@ export default {
   },
   props: {
     itemHeight: {
-      type: String,
-      default: '40',
+      type: Number,
+      default: 40,
+    },
+    visibleItemCount: {
+      type: Number,
+      default: 5,
+    },
+  },
+  computed: {
+    bgLinerHeight() {
+      return (this.visibleItemCount - 1) / 2 * this.itemHeight;
     },
   },
   data() {
@@ -36,18 +45,26 @@ export default {
             text: '测试三',
           },
           {
-            text: '测试三',
-          },
-          {
             text: '测试四',
           },
+          {
+            text: '测试五',
+          }, {
+            text: '测试六',
+          },
+
+
         ],
+        itemHeight: this.itemHeight,
+        visibleItemCount: this.visibleItemCount,
+        defaultIndex: this.$attrs.defaultIndex,
+
       },
     };
-    const pickerMask = <div class={[bem('mask')]} style={{ 'background-size': `100% ${this.itemHeight * 2}px` }}> </div>;
+    const pickerMask = <div class={[bem('mask')]} style={{ 'background-size': `100% ${this.bgLinerHeight}px` }}> </div>;
     return (
-      <div {...pickerProp} class={bem()}>
-        <JiemiccPickerColums {...pickerColumnsProp}></JiemiccPickerColums>
+      <div {...pickerProp} class={bem()} style={{ height: `${this.itemHeight * this.visibleItemCount}px` }}>
+        <JiemiccPickerColums ref="colums" {...pickerColumnsProp}></JiemiccPickerColums>
         {pickerMask}
       </div>
     );
@@ -58,6 +75,7 @@ export default {
 .jiemicc-picker{
   position: relative;
   background: $jiemicc-picker-bgcolor;
+  overflow: hidden;
 }
 .jiemicc-picker__mask{
    position: absolute;
@@ -68,5 +86,6 @@ export default {
    pointer-events: none;
    background: $jiemicc-picker-bg;
    background-position: top,bottom;
+   background-repeat: no-repeat;
 }
 </style>

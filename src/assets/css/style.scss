@@ -268,7 +268,6 @@ $spacing-directions: (
   margin-left: auto;
 }
 
-//sprite
 
 // one-line-cut
 .one-line-cut {
@@ -349,4 +348,13 @@ $spacing-directions: (
 }
 .over-hidden{
    overflow: hidden;
+}
+
+// position-vover
+
+.pt-cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
 }

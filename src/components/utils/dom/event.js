@@ -8,8 +8,8 @@ export function preventDefault(eventTarget) {
 }
 
 export function on(el, event, handler) {
-  el.addEventLister(event, handler);
+  el.addEventListener(event, handler);
 }
 export function off(el, event, handler) {
-  el.removeEventLister(event, handler);
+  el.removeEventListener(event, handler);
 }
